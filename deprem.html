@@ -154,21 +154,18 @@
         return `<a href='${earthQuakes.mapUrl(lat, lot)}' class='link-info' target='_new'>${place}</a>`;
       },
       updateUI: (data) => {
-        var tbody = "";
-        data.forEach(element => {
-          tbody += `
+        $("#tbody").html(
+          data.map(element => `
             <tr>
               <td>${element["mag"]}</td>
               <td>${earthQuakes.makeLink(element["place"], element['latitude'], element['longitude'])}</td>
               <td>${earthQuakes.turkeyMap(element['latitude'], element['longitude'])}</td>
               <td>${earthQuakes.timeSince(new Date(element["time"]))}</td>
-            </tr>`;
-        });
-
-        $("#tbody").html(tbody);
+            </tr>`
+          ).join('\n')
+        );
       }
-    }
-
+    };
 
     $(document).ready(() => { 
       earthQuakes.updateData();
