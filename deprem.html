@@ -156,12 +156,13 @@
       updateUI: (data) => {
         var tbody = "";
         data.forEach(element => {
-          tbody += "<tr>";
-          tbody += `<td>${element["mag"]}</td>`;
-          tbody += `<td>${earthQuakes.makeLink(element["place"], element['latitude'], element['longitude'])}</td>`;
-          tbody += `<td>${earthQuakes.turkeyMap(element['latitude'], element['longitude'])}</td>`;
-          tbody += `<td>${earthQuakes.timeSince(new Date(element["time"]))}</td>`;
-          tbody += "</tr>";
+          tbody += `
+            <tr>
+              <td>${element["mag"]}</td>
+              <td>${earthQuakes.makeLink(element["place"], element['latitude'], element['longitude'])}</td>
+              <td>${earthQuakes.turkeyMap(element['latitude'], element['longitude'])}</td>
+              <td>${earthQuakes.timeSince(new Date(element["time"]))}</td>
+            </tr>`;
         });
 
         $("#tbody").html(tbody);
