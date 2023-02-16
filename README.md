@@ -13,3 +13,6 @@ United States Geological Survey (usgs.org)
 * SVN
 * [jquery-csv](https://github.com/evanplaice/jquery-csv)
 * [MediaWiki Commons, Blank Map of Turkey & Cyprus.svg](https://commons.wikimedia.org/wiki/File:Blank_map_of_Turkey_%26_Cyprus.svg)
+
+## License
+* [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.html)
