@@ -13,22 +13,6 @@
     svg {
       zoom: .3;
     }
-
-
-.footer {
-          position: absolute;
-          width: 100%;
-          min-height: 320px;
-          bottom: 40px;
-          left: 0;
-
-        }
-              body{
-          position: relative;
-      }
-      main{
-          margin-bottom: 220px;
-      }
   </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -39,6 +23,13 @@
 
   <title>Son Depremler</title>
   <script>
+    const TURKEY = {
+      lat: [35.9025, 42.02683],
+      lon: [25.90902, 44.5742]
+    };
+
+    const AROUND_TURKEY = 3;
+
     const earthQuakes = {
       locateOnmap: (rangeMin, rangeMax, refValue, maxPoint) => {
         const rangeWidth = rangeMax - rangeMin;
@@ -50,8 +41,8 @@
       },
       turkeyMap: (lat, lon)=> {
         const turkeyBorders = {
-          lat: [35.9025, 42.02683],
-          lon: [25.90902, 44.5742]
+          lat: TURKEY.lat,
+          lon: TURKEY.lon
         };
 
         const x = earthQuakes.locateOnmap(turkeyBorders.lon[0], turkeyBorders.lon[1], lon, 182.06);
@@ -134,7 +125,12 @@
           success: result => {
             const result_array = $.csv.toObjects(result);
 
-            const turkey = result_array.filter(item => item["place"].indexOf("Turkey") > -1);
+            const turkey = result_array.filter(item =>
+              item["latitude"] > TURKEY.lat[0] - AROUND_TURKEY
+              && item["latitude"] < TURKEY.lat[1] + AROUND_TURKEY
+              && item["longitude"] > TURKEY.lon[0] - AROUND_TURKEY
+              && item["longitude"] < TURKEY.lon[1] - AROUND_TURKEY
+            );
 
             earthQuakes.updateUI(turkey);
           },
@@ -216,8 +212,8 @@
     </div>
 
     <footer class="footer">
-      <div class="alert alert-info">
-        Türkiye sınırları içerisinde son 24 saat içerisinde 4 magnitüd ve üzeri depremlerin listesi.<br />
+      <div class="alert">
+        Türkiye ve çevresinde (±3 lat/lot) son 24 saat içerisinde 4 magnitüd ve üzeri depremlerin listesi.<br />
         Kaynak: <a href="https://earthquake.usgs.gov" target="_new">USGS</a>
       </div>
     </footer>
